@@ -1,0 +1,311 @@
+/* 🖥️ BOOT SCREEN */
+.boot-screen {
+  background: black;
+  color: #00ffcc;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.boot-screen pre {
+  text-shadow: 0 0 10px #00ffcc;
+}
+
+/* ⌨️ TYPING TITLE */
+.typing-title {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #00ffcc;
+  width: 0;
+  animation: typing 2s steps(30, end) forwards,
+             blink 1s infinite;
+}
+
+@keyframes typing {
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* 💻 TOP RIGHT SIGNATURE */
+.terminal-signature {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  font-family: monospace;
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffcc;
+  z-index: 999;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+
+
+/* ===== BASE ===== */
+body {
+  margin: 0;
+  background: radial-gradient(circle at center, #05070d, #000000);
+  color: #00ffcc;
+  font-family: "Courier New", monospace;
+  overflow-x: hidden;
+}
+
+/* ===== GRID BACKGROUND ===== */
+body::before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(0,255,200,0.05) 1px, transparent 1px),
+    linear-gradient(to right, rgba(0,255,200,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* ===== SCANLINES ===== */
+body::after {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,255,200,0.02),
+    rgba(0,255,200,0.02) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+}
+
+/* ===== LAYOUT ===== */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* ===== PANELS ===== */
+.panel {
+  border: 1px solid #00ffcc;
+  padding: 15px;
+  border-radius: 10px;
+  background: rgba(0, 255, 200, 0.04);
+  box-shadow: 0 0 20px rgba(0,255,200,0.15);
+  backdrop-filter: blur(6px);
+}
+
+/* ===== HEADER ===== */
+h1 {
+  grid-column: span 2;
+  text-shadow: 0 0 20px #00ffd5;
+  letter-spacing: 1px;
+}
+
+/* ===== ALERT OVERLAY ===== */
+.alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,0,0,0.06);
+  pointer-events: none;
+  animation: flash 1s infinite;
+}
+
+@keyframes flash {
+  50% { opacity: 0.3; }
+}
+
+/* ===== INPUT ===== */
+textarea {
+  width: 100%;
+  background: black;
+  color: #00ffcc;
+  border: 1px solid #00ffcc;
+  padding: 12px;
+  box-shadow: 0 0 12px #00ffcc;
+  border-radius: 6px;
+}
+
+/* ===== BUTTONS ===== */
+button {
+  margin-top: 10px;
+  margin-right: 10px;
+  background: transparent;
+  border: 1px solid #00ffcc;
+  color: #00ffcc;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #00ffcc;
+  color: black;
+  box-shadow: 0 0 20px #00ffcc;
+  transform: translateY(-2px);
+}
+
+/* ===== CARDS ===== */
+.card {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #00ffcc;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+  background: rgba(0, 255, 200, 0.03);
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(0,255,200,0.3);
+}
+
+/* ===== THREAT STATES ===== */
+.card.high {
+  background: rgba(255,0,0,0.18);
+  box-shadow: 0 0 25px red;
+  animation: dangerPulse 1.2s infinite alternate;
+}
+
+.card.medium {
+  background: rgba(255,165,0,0.15);
+}
+
+.card.low {
+  background: rgba(0,255,0,0.08);
+}
+
+@keyframes dangerPulse {
+  from { box-shadow: 0 0 10px red; }
+  to { box-shadow: 0 0 35px red; }
+}
+
+/* ===== THREAT BAR ===== */
+.bar {
+  height: 6px;
+  margin-top: 6px;
+  background: #00ffcc;
+  border-radius: 3px;
+  animation: glow 1s infinite alternate;
+}
+
+.bar.high {
+  background: red;
+}
+
+.bar.medium {
+  background: orange;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 5px currentColor; }
+  to { box-shadow: 0 0 15px currentColor; }
+}
+
+/* ===== META TEXT ===== */
+.meta {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* ===== RADAR ===== */
+.radar {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,200,0.06), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.radar::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(0,255,200,0.15);
+}
+
+.radar::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 2px;
+  background: #00ffcc;
+  top: 50%;
+  left: 50%;
+  transform-origin: left;
+  animation: sweep 4s linear infinite;
+}
+
+@keyframes sweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ===== GLOBAL THREAT ===== */
+.global-meter {
+  width: 100%;
+  height: 10px;
+  background: rgba(0,255,200,0.1);
+  margin-top: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.global-fill {
+  height: 100%;
+  background: red;
+  box-shadow: 0 0 12px red;
+  transition: width 0.5s ease;
+}
+
+/* ===== TERMINAL SIGNATURE (TOP RIGHT) ===== */
+.terminal-signature {
+  position: fixed;
+  top: 12px;
+  right: 20px;
+  font-size: 14px;
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffcc;
+  z-index: 10;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ===== FOOTER SIGNATURE ===== */
+.signature {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 13px;
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffcc;
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  opacity: 0.8;
+}
