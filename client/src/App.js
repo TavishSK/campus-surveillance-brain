@@ -59,7 +59,7 @@ function MainApp() {
   const analyze = async () => {
     setLoading(true);
 
-    const res = await fetch("http://localhost:5001/analyze", {
+    const res = await fetch("https://campus-surveillance-brain.onrender.com/analyze", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -76,7 +76,7 @@ function MainApp() {
   const scanReddit = async () => {
     setLoading(true);
 
-    await fetch("http://localhost:5001/scan-reddit");
+    await fetch("https://campus-surveillance-brain.onrender.com/scan-reddit");
 
     setTimeout(async () => {
       await fetchAll();
@@ -87,13 +87,13 @@ function MainApp() {
   };
 
   const fetchAll = async () => {
-    const logsRes = await fetch("http://localhost:5001/logs");
+    const logsRes = await fetch("https://campus-surveillance-brain.onrender.com/logs");
     let logsData = await logsRes.json();
 
     logsData.sort((a, b) => b.threat_score - a.threat_score);
     setLogs(logsData);
 
-    const suspectRes = await fetch("http://localhost:5001/suspect");
+    const suspectRes = await fetch("https://campus-surveillance-brain.onrender.com/suspect");
     setSuspect(await suspectRes.json());
 
     setLastUpdated(new Date().toLocaleTimeString());
